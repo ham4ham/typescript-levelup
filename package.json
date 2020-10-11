@@ -10,7 +10,46 @@
   "scripts": {
     "start": "node dist/index.js",
     "debug": "nodemon -P 250 --inspect dist/index.js",
-    "start:watch": "nodemon -L -e ts --watch ./src -P 250 --nolazy --exec \"tsc && npm start\""
+    "start:watch": "nodemon -L -e ts --watch ./src -P 250 --nolazy --exec \"tsc && npm start\"",
+    "test": "jest --coverage --ci --colors --no-cache --runInBand",
+    "test:dev": "jest --runInBand",
+    "test:workers": "LOG_LEVEL=info JEST_WORKERS=4 jest --coverage --ci --colors --no-cache --maxWorkers=4",
+    "test:gh-actions": "JEST_WORKERS=$(nproc --all) jest --coverage --ci --colors --no-cache --maxWorkers=$(nproc --all)",
+    "test:log": "LOG_LEVEL=info jest --coverage --ci --colors --no-cache --runInBand",
+    "test:watch": "jest --watch --no-cache --runInBand"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.8",
+    "jest": "^26.5.2",
+    "ts-jest": "^26.1.4"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js}",
+      "!src/test/**/*"
+    ],
+    "coverageDirectory": "coverage",
+    "reporters": [
+      "default"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)(spec|test).ts?(x)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/coverage/",
+      "/dist/",
+      "/src/migration/"
+    ],
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    }
   },
   "devDependencies": {
     "@types/node": "^12.12.28",
@@ -19,6 +58,7 @@
     "eslint": "^7.x.x",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.19.1",
     "nodemon": "^2.0.2",
     "typescript": "^4.0.3"
   },
