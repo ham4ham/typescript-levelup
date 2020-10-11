@@ -20,6 +20,9 @@
   },
   "dependencies": {
     "@types/jest": "^26.0.14",
+    "dotenv": "^8.2.0",
+    "fastify": "^3.6.0",
+    "fastify-plugin": "^2.3.4",
     "jest": "^26.5.2",
     "ts-jest": "^26.1.4"
   },
